@@ -1,87 +1,78 @@
 <template>
   <div class="welcome-page">
     <div class="welcome-header">
-      <h1>欢迎来到学生管理系统</h1>
-      <p>这里可以展示一些欢迎的介绍和功能简介。</p>
+      <h2>欢迎来到学生管理系统</h2>
+      <p>点击list查看学生信息</p>
     </div>
 
-    <div class="additional-info">
-      <h3>系统信息</h3>
-      <p>这里可以展示系统的一些额外信息或链接。</p>
+    <div class="carousel">
+      <div @click="prevSlide" class="carousel-prev-icon-left"></div>
+      <div class="carousel-slides">
+        <img
+          v-for="(slide, index) in slides"
+          :key="index"
+          :src="slide"
+          :style="{ left: index * 100 + '%', transform: dynamicstyle }"
+          alt="轮播图片"
+        />
+      </div>
+      <div @click="nextSlide" class="carousel-prev-icon-right"></div>
+    </div>
+
+    <!-- 轮播图容器 -->
+    <div class="slider-container">
+      <!-- 轮播图片 -->
+      <div class="slider">
+        <!-- 动态绑定背景图片样式 -->
+        <div class="slide" :style="{ backgroundImage: 'url(' + slides[currentSlideIndex] + ')' }"></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { storeToRefs } from 'pinia';
-import { useUserStore } from '../store/user';
+import { ref, onMounted } from 'vue';
+// 定义 dynamicstyle 变量
+let dynamicstyle = ref('');
 
-const userStore = useUserStore();
-const { userList } = storeToRefs(userStore);
+// 轮播图片地址数组
+const slides = ref([
+  'demo-vue/src/assets/1.jpg', // 
+  'demo-vue/src/assets/1.jpg', // 
+]);
+
+// 当前轮播图片索引
+let currentSlideIndex = ref(0);
+
+// 在组件挂载后执行
+onMounted(() => {
+  // 设置定时器，每隔3秒切换一次图片
+  const interval = setInterval(() => {
+    currentSlideIndex.value = (currentSlideIndex.value + 1) % slides.value.length;
+  }, 3000);
+
+  // 组件销毁时清除定时器
+  return () => clearInterval(interval);
+});
 </script>
 
 <style scoped>
-.welcome-page {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 40px;
-  text-align: center;
+.slider-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  height: 300px; /* 轮播图容器的高度 */
 }
 
-.welcome-header {
-  margin-bottom: 40px;
+.slider {
+  display: flex;
+  transition: transform 0.5s ease; /* 切换动画效果 */
 }
 
-h1 {
-  font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-p {
-  font-size: 1.2rem;
-  color: #666;
-  margin-bottom: 20px;
-}
-
-.student-list {
-  background-color: rgb(107, 111, 103);
-  margin-bottom: 40px;
-}
-
-h2 {
-  font-size: 2rem;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.user-item {
-  cursor: pointer;
-  margin-bottom: 5px;
-  font-size: 1.1rem;
-}
-
-.user-item:hover {
-  text-decoration: underline;
-}
-
-.additional-info {
-  margin-top: 40px;
-}
-
-h3 {
-  font-size: 1.8rem;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.additional-info p {
-  font-size: 1rem;
-  color: #666;
+.slide {
+  width: 100%;
+  height: 300px; /* 轮播图的高度 */
+  background-size: cover;
+  background-position: center;
 }
 </style>
