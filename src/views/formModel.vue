@@ -1,12 +1,4 @@
-<!--
- * @Description: 
 
- * @Version: 1.0
- * @Autor: Li Cheng
- * @Date: 2024-06-24 16:00:30
- * @LastEditors: Li Cheng
- * @LastEditTime: 2024-06-24 16:03:32
--->
 <template>
   <input v-model="messsage" />
   <textarea v-model="messsage"></textarea>

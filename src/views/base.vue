@@ -1,114 +1,87 @@
-<!--
- * @Description: 
- * @Version: 1.0
- * @Autor: Li Cheng
- * @Date: 2024-06-24 15:18:28
- * @LastEditors: Li Cheng
- * @LastEditTime: 2024-06-24 15:22:19
--->
 <template>
-  <!-- <h1 :class="'text-' + age" class="font-size-20">
-    {{ name }} - {{ age === 16 ? '少年' : '成年人' }} - {{ sex(0) }}
-  </h1>
+  <div class="welcome-page">
+    <div class="welcome-header">
+      <h1>欢迎来到学生管理系统</h1>
+      <p>这里可以展示一些欢迎的介绍和功能简介。</p>
+    </div>
 
-  <h1 v-bind="obj">{{ name }} - {{ age === 16 ? '少年' : '成年人' }} - {{ sex(0) }}</h1>
-
-  <h1 v-if="hasBro">有弟弟：王钢蛋</h1>
-  <h2 v-if="hasBro">{{ state.name }} - {{ state.age }} - {{ state.sex }}</h2>
-  <h1 v-else>没有弟弟</h1>
-  <button @click="isBro">疑问？</button>
-  <button @click="change">切换</button>
-
-  <h1 :class="[isActive ? 'active' : '']">李四</h1>
-  <button @click="isActive = !isActive">选中李四</button>
-
-  <h1 :style="{ color: fontColor }">李四</h1>
-  <div v-if="type === 1">1</div>
-  <div v-else-if="type === 2">2</div>
-  <div v-else-if="type === 3">3</div>
-  <div v-else>4</div> -->
-  <div>
-    <h1>学生名单</h1>
-    <div>
-      {{ userLists.map(item=>{
-        return item.userName;
-        }).join(',')
-      }}
+    <div class="additional-info">
+      <h3>系统信息</h3>
+      <p>这里可以展示系统的一些额外信息或链接。</p>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useUserStore } from '../store/user';
 
-const userStore=useUserStore();
-const {userList}=storeToRefs(userStore);
-// const {setUserList}=userStore;
-
-const name = ref('铁锤妹妹🔨');
-const age = ref(18);
-function sex(sex) {
-  return sex === 1 ? '男' : '女';
-}
-
-const obj = {
-  class: 'text-16',
-  id: 'font-size-24'
-};
-
-let hasBro = ref(false);
-console.log(hasBro);
-
-function isBro() {
-  alert('到底有没有？');
-  console.log(age);
-}
-
-const state = reactive({
-  name: '王钢蛋',
-  age: 16,
-  sex: '男'
-});
-
-const change = () => {
-  hasBro.value = !hasBro.value;
-  console.log(hasBro);
-  state.age = 17;
-  console.log(state);
-};
-
-console.log(state);
-const isActive = ref(true);
-
-const fontColor = ref('red');
-
-const type = ref(5);
+const userStore = useUserStore();
+const { userList } = storeToRefs(userStore);
 </script>
 
 <style scoped>
-.text-16 {
-  color: red;
+.welcome-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px;
+  text-align: center;
 }
 
-.text-18 {
-  color: blue;
+.welcome-header {
+  margin-bottom: 40px;
 }
 
-.font-size-20 {
-  font-size: 20px;
+h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 10px;
 }
 
-#font-size-24 {
-  font-size: 24px;
+p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 20px;
 }
 
-.active {
-  color: green;
+.student-list {
+  background-color: rgb(107, 111, 103);
+  margin-bottom: 40px;
 }
 
-.text-gray {
-  color: gray;
+h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.user-item {
+  cursor: pointer;
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+}
+
+.user-item:hover {
+  text-decoration: underline;
+}
+
+.additional-info {
+  margin-top: 40px;
+}
+
+h3 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.additional-info p {
+  font-size: 1rem;
+  color: #666;
 }
 </style>

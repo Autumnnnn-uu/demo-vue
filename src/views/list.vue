@@ -1,10 +1,3 @@
-<!--
- * @Description: 
- * @Version: 1.0
- * @Autor: Li Cheng
- * @Date: 2024-06-24 14:34:13
- * @LastEditors: Li Cheng
- * @LastEditTime: 2024-06-24 15:01:55
 
 <template>
   <div class="list-comp">
@@ -76,8 +69,7 @@ let curIdx=ref(0);
 let studyNum=ref(0);
 let name=ref('');  
 let year=ref(0);
-// let userList=reactive(userList);
-// console.log(userList);
+
 
 const deleteUser = index => {
   userStore.userList.splice(index, 1);
@@ -110,7 +102,7 @@ const checkList=(code)=>{
 const addNum2name=(name)=>{
   //将姓名后面追加最新编号
   let total=0;
-  //console.log(userName,list,userList)
+
   userStore.userList.map(item=>{
     if(item.userName.indexOf(name)!==-1){
       let tempItem=item;   //备份item
@@ -153,7 +145,7 @@ const submitFn = () => {
   }
 
   // 新增
-    //let tempName= isEdit.value ? name.value : addNum2name(name.value);
+
     userStore.userList.unshift({
       id: studyNum.value,
       userName: tempName,
@@ -267,7 +259,6 @@ const getYourName = id => {
     display: flex;
     justify-content: flex-start;
     align-items:center;
-    /*margin-bottom: 24px;*/
     height: 64px;
     border-bottom: 2px solid rgba(0,0,0,0.06);
     &:nth-child(1){
